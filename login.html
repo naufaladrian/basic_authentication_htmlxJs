@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      input {
+        border-radius: 20px;
+        display: block;
+        margin: 10px auto;
+        width: 60%;
+        height: 20px;
+        padding: 5px 20px;
+      }
+      div {
+        background-color: white;
+        width: 30%;
+        margin: auto;
+        margin-top: 200px;
+        padding-top: 20px;
+        text-align: center;
+      }
+      button {
+        width: 80px;
+        padding: 4px;
+        margin: 10px;
+        border-radius: 20px;
+        background-color: whitesmoke;
+      }
+      button:hover {
+        background-color: gray;
+        cursor: pointer;
+      }
+      body {
+        background-image: url("lapt.jpg");
+        background-repeat: no-repeat;
+        width: 100%;
+      }
+      #register {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- login start -->
+    <div id="login">
+      <h3>Login Page</h3>
+      <input id="user" type="text" placeholder="username" />
+      <input id="pass" type="password" placeholder="password" />
+      <button onclick="bt()">Login</button>
+      <a onclick="fucauth()">register</a>
+    </div>
+    <!-- login ed -->
+    <!-- register start -->
+    <div id="register">
+      <h3>Register Page</h3>
+      <input id="reguser" type="text" placeholder="username" />
+      <input id="regpass" type="password" placeholder="password" />
+      <button onclick="bt()">Register</button>
+      <a onclick="fucauth()">Login</a>
+    </div>
+    <!-- register ed -->
+    <script>
+      let loginActive = false;
+      const database = [
+        {
+          username: "user23",
+          password: "1234",
+        },
+      ];
+      function fucauth() {
+        if (!loginActive) {
+          loginActive = true;
+          document.getElementById("register").style.display = "block";
+          document.getElementById("login").style.display = "none";
+          return;
+        }
+        loginActive = false;
+        document.getElementById("register").style.display = "none";
+        document.getElementById("login").style.display = "block";
+      }
+      function bt() {
+        if (!loginActive) {
+          const user = document.getElementById("user").value;
+          const pass = document.getElementById("pass").value;
+          const res = database.find(
+            (item) => item.username == user && item.password == pass
+          );
+          if (!res) alert("user/pass salah");
+          else alert("login berhasil");
+          return;
+        }
+        const user = document.getElementById("reguser").value;
+        const pass = document.getElementById("regpass").value;
+        const bebas = database.find((item) => item.username == user);
+        if (bebas) {
+          alert("user telah dipakai");
+          return;
+        }
+        database.push({
+          username: user,
+          password: pass,
+        });
+        alert("registrasi berhasil");
+      }
+    </script>
+  </body>
+</html>
